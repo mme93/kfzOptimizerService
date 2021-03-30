@@ -4,12 +4,10 @@ import mameie.kfzService.db.KfzOptimzerDataBase;
 import mameie.kfzService.request.LoginForm;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class KfzServerUserController {
 
     private final KfzOptimzerDataBase dataBase;
@@ -20,10 +18,22 @@ public class KfzServerUserController {
    @PostMapping("/request")
     public ResponseEntity postController(@RequestBody LoginForm loginForm){
         return ResponseEntity.ok(HttpStatus.OK);
-   }
-   @GetMapping("/date")
+    }
+    @PostMapping("/login")
+    public ResponseEntity postLogin(@RequestBody LoginForm loginForm){
+
+        return ResponseEntity.ok(HttpStatus.OK);
+    }
+
+   @GetMapping("/date" )
     public String getDate(){
-        return "date";
+        return "asdasdasd";
+   }
+   @GetMapping("/t")
+    public LoginForm getT(){
+       LoginForm loginForm = new LoginForm();
+       loginForm.setUser("Markus");
+        return loginForm;
    }
 
 }
