@@ -1,6 +1,7 @@
 package mameie.kfzService.config;
 
-import mameie.kfzService.db.KfzOptimzerDataBase;
+import mameie.kfzService.db.method.KfzOptimzerDataBase;
+import mameie.kfzService.db.table.UserTable;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,6 +12,12 @@ public class DBInit {
     public KfzOptimzerDataBase getDBService()throws Exception{
         KfzOptimzerDataBase kfzOptimzerDataBase = new KfzOptimzerDataBase();
         return kfzOptimzerDataBase;
+    }
+
+    @Bean
+    public UserTable getUserTableService()throws Exception{
+        UserTable UserTable = new UserTable();
+        return UserTable;
     }
 
 }
