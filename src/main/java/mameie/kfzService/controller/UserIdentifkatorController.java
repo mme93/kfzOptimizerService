@@ -3,6 +3,7 @@ package mameie.kfzService.controller;
 import mameie.kfzService.db.method.KfzOptimzerDataBase;
 import mameie.kfzService.db.table.UserTable;
 import mameie.kfzService.request.UserLogin;
+import mameie.kfzService.request.UserLoginAnswer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,34 +16,29 @@ public class UserIdentifkatorController {
 
     private final KfzOptimzerDataBase dataBase;
     private  UserTable userTable;
+
     public UserIdentifkatorController(KfzOptimzerDataBase dataBase, UserTable userTable){
         this.userTable=userTable;
         this.dataBase=dataBase;
     }
 
-    @GetMapping("/date")
-    public void geDate(){
-        if(userTable.load()){
-            if(userTable.checkLogin("93markus.meier@googlemail.com","abc12345")){
-                System.out.println("Loggin Succesfull");
-            }else{
-                System.err.println("Loggin denied");
-            }
-        }
-
-    }
     @PostMapping("/userIdentifaktion")
-    public ResponseEntity postController(@RequestBody UserLogin userLogin){
+    public Object geDate(@RequestBody UserLogin userLogin){
+        UserLoginAnswer result = new UserLoginAnswer(userLogin.getEmail(),userLogin.getPassword(),false);
+
         if(userTable.load()){
             if(userTable.checkLogin(userLogin.getEmail(),userLogin.getPassword())){
                 System.out.println("Loggin Succesfull");
-                return ResponseEntity.ok(HttpStatus.OK);
+                result.setLogin(true);
+                return result;
             }else{
-                return ResponseEntity.ok(HttpStatus.NOT_FOUND);
+                System.err.println("Loggin denied");
+                return result;
             }
-        }else{
-            return ResponseEntity.ok(HttpStatus.NOT_FOUND);
         }
+
+    return result;
     }
+
 
 }

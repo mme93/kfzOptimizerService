@@ -9,14 +9,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class KfzOptimzerDataBase {
+    /**
+     * Coumnname+Type
+     * @param columName
+     * Abgeschnitter Teil mit dem Datentyp der Cloumn
+     * @return
+     */
     private static String trimTyp(String columName){
         String[] splitColumnName=columName.split("_");
         return splitColumnName[0];
     }
+
+    /**
+     * Coumnname+Type
+     * @param columName
+     * Gibt den Namen der Datenbanktabellen Clumn wieder
+     * @return
+     */
     private static String trimColumn(String columName){
         String[] splitColumnName=columName.split("_");
         return splitColumnName[1];
     }
+
+    /**
+     * Name der Tabelle in der Datenbank
+     * @param tableName
+     * Liste mit alle Columen Names der Tabelle
+     * @param columnName
+     * Liefer eine Liste mit Column Name, Result und Datentyp
+     * @return
+     */
     public static List<List<DataBaseColumn>> loadTableFromDataBase(String tableName, List<String> columnName) {
         List<List<DataBaseColumn>>tableList= new ArrayList<>();
         try {
