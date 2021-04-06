@@ -4,10 +4,8 @@ import mameie.kfzService.db.method.KfzOptimzerDataBase;
 import mameie.kfzService.db.table.UserTable;
 import mameie.kfzService.request.LoginToken;
 import mameie.kfzService.request.UserLogin;
-import mameie.kfzService.request.UserLoginAnswer;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.SQLException;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +40,7 @@ public class UserIdentifkatorController {
                             .append(UUID.randomUUID().toString()).toString();
                 };
                 token.setToken(tokenSupplier.get());
+                token.setEmail(userLogin.getEmail());
                 this.tokenList.add(token);
                 return token;
             }else{
