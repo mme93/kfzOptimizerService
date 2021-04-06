@@ -2,13 +2,17 @@ package mameie.kfzService.controller;
 
 import mameie.kfzService.db.method.KfzOptimzerDataBase;
 import mameie.kfzService.db.table.UserTable;
+import mameie.kfzService.request.LoginToken;
 import mameie.kfzService.request.UserLogin;
 import mameie.kfzService.request.UserLoginAnswer;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+import java.util.function.Supplier;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -16,29 +20,38 @@ public class UserIdentifkatorController {
 
     private final KfzOptimzerDataBase dataBase;
     private  UserTable userTable;
-
+    private List<LoginToken> tokenList= new ArrayList<>();
     public UserIdentifkatorController(KfzOptimzerDataBase dataBase, UserTable userTable){
         this.userTable=userTable;
         this.dataBase=dataBase;
     }
 
     @PostMapping("/userIdentifaktion")
-    public Object geDate(@RequestBody UserLogin userLogin){
-        UserLoginAnswer result = new UserLoginAnswer(userLogin.getEmail(),userLogin.getPassword(),false);
+    public Object getTest(@RequestBody UserLogin userLogin){
+        LoginToken token = new LoginToken(null,false);
 
         if(userTable.load()){
             if(userTable.checkLogin(userLogin.getEmail(),userLogin.getPassword())){
                 System.out.println("Loggin Succesfull");
-                result.setLogin(true);
-                return result;
+                token.setLogin(true);
+
+                Supplier<String> tokenSupplier = () -> {
+                    StringBuilder stringBuilderToken = new StringBuilder();
+                    long currentTimeInMilisecond = Instant.now().toEpochMilli();
+                    return stringBuilderToken.append(currentTimeInMilisecond).append("-")
+                            .append(UUID.randomUUID().toString()).toString();
+                };
+                token.setToken(tokenSupplier.get());
+                this.tokenList.add(token);
+                return token;
             }else{
                 System.err.println("Loggin denied");
-                return result;
+                return token;
             }
         }
-
-    return result;
+        return token;
     }
+
 
 
 }
