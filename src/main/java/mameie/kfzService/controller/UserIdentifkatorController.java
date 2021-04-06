@@ -41,7 +41,7 @@ public class UserIdentifkatorController {
                 };
                 token.setToken(tokenSupplier.get());
                 token.setEmail(userLogin.getEmail());
-                this.tokenList.add(token);
+                addToken(token);
                 return token;
             }else{
                 System.err.println("Loggin denied");
@@ -50,7 +50,37 @@ public class UserIdentifkatorController {
         }
         return token;
     }
+    private void addToken(LoginToken token){
+        if(this.tokenList.size()==0||!duplicateToken(token)){
+            this.tokenList.add(token);
+            deleteToken(token);
+        }else{
+            deleteToken(token);
+            this.tokenList.add(token);
+        }
 
-
-
+    }
+    private boolean duplicateToken(LoginToken token){
+        for(LoginToken listToken:this.tokenList){
+            if(listToken.getEmail().equals(token.getEmail())){
+                return true;
+            }
+        }
+        return false;
+    }
+    private boolean deleteToken(LoginToken token){
+        try{
+            for(int i=0;i<this.tokenList.size();i++){
+                LoginToken listToken=this.tokenList.get(i);
+                if(listToken.getEmail().equals(token.getEmail())){
+                    this.tokenList.remove(i);
+                    return true;
+                }
+            }
+            return false;
+        }catch(IndexOutOfBoundsException e){
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
