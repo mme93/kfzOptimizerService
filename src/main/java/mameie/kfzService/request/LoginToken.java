@@ -5,6 +5,10 @@ public class LoginToken {
     private String token, email;
     private boolean login;
 
+    public LoginToken(String token) {
+        this.token = token;
+    }
+
     public LoginToken(String token, boolean login) {
         this.token = token;
         this.login = login;

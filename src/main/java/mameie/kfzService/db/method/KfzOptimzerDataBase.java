@@ -60,6 +60,10 @@ public class KfzOptimzerDataBase {
                                     DataBaseColumn resultColum = new DataBaseColumn(trimColumn(column), trimTyp(column));
                                     resultColum.setDataBaseResult(result.getString(trimColumn(column)));
                                     resultList.add(resultColum);
+                                }else if(trimTyp(column).equals("int")){
+                                    DataBaseColumn resultColum = new DataBaseColumn(trimColumn(column), trimTyp(column));
+                                    resultColum.setDataBaseResult(String.valueOf(result.getInt(trimColumn(column))));
+                                    resultList.add(resultColum);
                                 }
                             }
                             tableList.add(resultList);

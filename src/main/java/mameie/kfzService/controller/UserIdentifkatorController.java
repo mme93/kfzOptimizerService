@@ -25,7 +25,7 @@ public class UserIdentifkatorController {
     }
 
     @PostMapping("/userIdentifaktion")
-    public Object getTest(@RequestBody UserLogin userLogin){
+    public Object getUserIdentifaktion(@RequestBody UserLogin userLogin){
         LoginToken token = new LoginToken(null,false);
 
         if(userTable.load()){
@@ -60,6 +60,11 @@ public class UserIdentifkatorController {
         }
 
     }
+    public static boolean identifyToken(LoginToken token){
+
+        return true;
+    }
+    //Token Verwaltung
     private boolean duplicateToken(LoginToken token){
         for(LoginToken listToken:this.tokenList){
             if(listToken.getEmail().equals(token.getEmail())){
