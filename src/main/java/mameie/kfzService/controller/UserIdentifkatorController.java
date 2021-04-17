@@ -4,6 +4,7 @@ import mameie.kfzService.db.method.KfzOptimzerDataBase;
 import mameie.kfzService.db.table.UserTable;
 import mameie.kfzService.request.LoginToken;
 import mameie.kfzService.request.UserLogin;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
@@ -59,10 +60,6 @@ public class UserIdentifkatorController {
             this.tokenList.add(token);
         }
 
-    }
-    public static boolean identifyToken(LoginToken token){
-
-        return true;
     }
     //Token Verwaltung
     private boolean duplicateToken(LoginToken token){
