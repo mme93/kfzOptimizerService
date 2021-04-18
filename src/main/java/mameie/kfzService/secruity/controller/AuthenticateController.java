@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = "*")
-public class HomeController {
+public class AuthenticateController {
 
     @Autowired
     private JWTUtility jwtUtility;
@@ -39,12 +39,12 @@ public class HomeController {
                     )
             );
         } catch (BadCredentialsException e) {
-            return  new JwtResponse(e.getMessage(),"false");
+            return  new JwtResponse(e.getMessage());
         }
         final UserDetails userDetails
                 = userService.loadUserByUsername(jwtRequest.getUsername());
         final String token =
                 jwtUtility.generateToken(userDetails);
-        return  new JwtResponse(token,"true");
+        return  new JwtResponse(token);
     }
 }

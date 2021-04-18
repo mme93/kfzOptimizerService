@@ -25,9 +25,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtFilter jwtFilter;
 
-//    @Autowired
-//    private CorsFilter corsFilter;
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 

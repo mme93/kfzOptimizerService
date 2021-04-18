@@ -1,5 +1,7 @@
 package mameie.kfzService.secruity.service;
 
+import mameie.kfzService.sql.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,10 +13,17 @@ import java.util.ArrayList;
 @Service
 public class UserService implements UserDetailsService {
 
+    @Autowired
+    private UserRepository repository;
     //Gibt den User für UserDetails zurück
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        //Password muss mit BCrypt gehasht in der Tabelle abgespeichert werden
-        return new User("Markus","$2y$10$rBYhh/2nryL9rqITpvcwx.cCeo25w5mO6/e9X8XsU8dBRcRpp5pxG", new ArrayList<>());
+        for(mameie.kfzService.sql.model.User user:repository.findAll()){
+            if(user.getEmail().equals(username)){
+                User credentialUser = new User(username,user.getPassword(), new ArrayList<>());
+                return credentialUser;
+            }
+        }
+        return null;
     }
 }
