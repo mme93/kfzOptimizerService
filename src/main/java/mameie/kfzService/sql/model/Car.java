@@ -13,9 +13,9 @@ public class Car {
     private String fin;
     @Column(name = "kennzeichen", nullable = false,unique = true)
     private String kennzeichen;
-    @Column(name = "verbrenner", nullable = false)
+    @Column(name = "verbrenner")
     private String verbrenner;
-    @Column(name = "tuev", nullable = false)
+    @Column(name = "tuev")
     private String tuev;
     @Column(name = "service")
     private String service;
