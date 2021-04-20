@@ -1,5 +1,8 @@
 package mameie.kfzService.secruity.controller;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import mameie.kfzService.secruity.model.JwtRequest;
 import mameie.kfzService.secruity.model.JwtResponse;
 import mameie.kfzService.secruity.service.UserService;

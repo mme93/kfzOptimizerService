@@ -1,5 +1,8 @@
 package mameie.kfzService.sql.controller;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import mameie.kfzService.sql.model.User;
 import mameie.kfzService.sql.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,9 +46,9 @@ public class UserController
         }
     }
     @GetMapping("/user/load")
-    public User getUser(@RequestBody long id) {
-        System.err.println(id);
-        return repository.findById(id);
+    public User getUser(@RequestBody UserID userID) {
+        System.err.println(userID.getId());
+        return repository.findById(1);
     }
 
     @GetMapping("/user/loadList")
@@ -66,4 +69,10 @@ public class UserController
             return e.getMessage();
         }
     }
+}
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+class UserID{
+    long id;
 }

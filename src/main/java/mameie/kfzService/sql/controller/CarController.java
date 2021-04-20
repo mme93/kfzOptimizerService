@@ -8,6 +8,8 @@ import mameie.kfzService.sql.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Entity;
+
 
 @RestController
 public class CarController {
@@ -15,6 +17,18 @@ public class CarController {
     @Autowired
     private CarRepository repository;
 
+    @PostMapping("/car/load")
+    public Car getLoadedCar(@RequestBody LicensePlate mark){
+        System.err.println(mark.getMark());
+        for(Car car:repository.findAll()){
+            if(mark.getMark().equals(car.getKennzeichen())){
+                return car;
+            }
+        }
+        Car car =new Car();
+        car.setKennzeichen("NOT FOUND");
+        return car;
+    }
 
     @PostMapping("/car/save")
     public String saveCar(@RequestBody Car car){
@@ -31,8 +45,8 @@ public class CarController {
        }
     }
 
-
 }
+
 
 @Data
 @AllArgsConstructor
